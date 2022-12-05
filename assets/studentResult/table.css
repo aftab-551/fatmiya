@@ -1,0 +1,41 @@
+body {
+  font-family: DM Sans;
+}
+
+h2 {
+  margin: 30px auto;
+}
+
+table {
+  width: 80%;
+  margin: 0 auto 3em auto;
+  border: 1px solid #e4dbdb;
+  border-collapse: collapse;
+}
+
+th {
+  border: 1px solid #e4dbdb;
+  border-collapse: collapse;
+  padding: 20px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+td {
+  border: 1px solid #e4dbdb;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+.HL {
+  font-size: 1.2em;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e7d5d5;
+}
+/*# sourceMappingURL=table.css.map */

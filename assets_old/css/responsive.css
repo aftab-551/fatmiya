@@ -1,0 +1,22 @@
+/* lg */ 
+@media (min-width: 1200px) {
+
+}
+/* md */
+@media (min-width: 992px) and (max-width: 1199px) {
+	#home-carousel  .item {/*height: 500px;*/}
+}
+/* sm */
+@media (min-width: 768px) and (max-width: 991px) {
+	#home-carousel  .item {/*height: 500px;*/}
+	.scroll-up{display: none !important;}
+}
+/* xs */
+@media (max-width: 767px) {
+	#home-carousel  .item {/*height: 300px;*/}
+	.scroll-up{display: none !important;}
+}
+/* XS Portrait */
+@media (max-width: 479px) {
+
+}

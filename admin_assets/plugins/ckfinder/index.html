@@ -1,0 +1,13 @@
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>	
+<textarea name="page_content" id="page_content"></textarea>
+				<script type="text/javascript">
+                CKEDITOR.replace( 'page_content',
+                {
+                filebrowserBrowseUrl : 'ckfinder.html',
+                filebrowserImageBrowseUrl : 'ckfinder.html?Type=Images',
+                filebrowserFlashBrowseUrl : 'ckfinder.html?Type=Flash',
+                filebrowserUploadUrl : 'core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : 'core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl : 'core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                });
+                </script>
