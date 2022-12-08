@@ -147,6 +147,42 @@ class MY_Controller extends CI_Controller {
         }
     }
     /* End of function uploading */
+       
+
+    /* Function for Grading */
+    public function grade($grand_total){
+        if($grand_total >= 85){
+            return ("A");
+        }
+        elseif($grand_total >= 80){
+            return ("A-");
+        }
+        elseif($grand_total >= 75){
+            return ("B+");
+            
+        }
+        elseif($grand_total >= 70){
+            return ("B");
+            
+        }
+        elseif($grand_total >=65){
+            return ("B-");
+        }
+        elseif($grand_total >= 60){
+            return ("C+");
+            
+        }
+        elseif($grand_total >= 50){
+            return ("D");
+            
+        }
+        else{
+            return ("F");
+        }
+    }
+    /* End of Grading function */
+
+
 
     /* Function to resize image */
     public function resize_image($folder_name, $image_name, $destination_folder, $height, $width) {

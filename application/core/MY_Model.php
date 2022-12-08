@@ -97,6 +97,21 @@ Class MY_Model extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
+    public function student_transcript($student_id){
+        $this->db->select('marks.* ,students.id as studentid,students.student_id as studentID, students.first_name as first_name, students.last_name as last_name,courses.code as code,courses.name as Cname, programs.name as program_name ');
+        $this->db->from('marks');
+        $this->db->join('students','students.id = marks.student_id');
+        $this->db->join('offered_courses','offered_courses.id = marks.offered_course_id');
+        $this->db->join('semester_courses','semester_courses.id = offered_courses.semester_course_id');
+        $this->db->join('courses','courses.id = semester_courses.course_id');
+        $this->db->join('semester','semester.id = semester_courses.semester_id');
+        $this->db->join('programs','programs.id = semester.program_id');
+        $this->db->where('marks.status',1);
+        $this->db->where('marks.student_id',$student_id);
+        $rows = $this->db->get()->result();
+
+        return $rows;
+    }
 
     public function loggedIn(){
        // die('h');

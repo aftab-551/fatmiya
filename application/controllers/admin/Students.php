@@ -87,39 +87,15 @@ class Students extends MY_Controller {
             for($i=0; $i< sizeof($mark); $i++){
                 $grand_total = $grand_total + ($mark[$i]/$number[$i] * $percentage[$i]);
             }
-            if($grand_total >= 85){
-                $grade= "A";
-            }
-            elseif($grand_total >= 80){
-                $grade= "A-";
-            }
-            elseif($grand_total >= 75){
-                $grade= 'B+';
-            }
-            elseif($grand_total >= 70){
-                $grade= "B";
-            }
-            elseif($grand_total >=65){
-                $grade= "B-";
-            }
-            elseif($grand_total >= 60){
-                $grade= "C+";
-            }
-            elseif($grand_total >= 50){
-                $grade= "D";
-            }
-            else{
-                $grade= "F";
-            }
+            $grade = $this->grade($grand_total);
             $data = array(
                 'obtained_percentage' => $marks,
                 'grand_total' => $grand_total,
                 'grade'   => $grade,            
             );
-            $this->security->xss_clean($data);
+            // $this->security->xss_clean($data);
             $this->enrolledCourses_model->update($data, $condition, 'marks');
             $this->session->set_flashdata('success','Marks Updated Successfully');
-            // redirect(base_url('admin/Students/view_result_student/'.rtrim(base64_encode($courseid),'=')));
             $data['content'] = 'admin/students/view_result_student';
             $data['result_data'] = $this->enrolledCourses_model->student_result($CourseID);
             $this->load->view('admin/admin_master', $data);
@@ -134,40 +110,8 @@ class Students extends MY_Controller {
             $this->load->view('admin/admin_master', $data);
         }
     }
-    public function check($grand_total){
-        if($grand_total >= 85){
-            return ("A");
-        }
-        elseif($grand_total >= 80){
-            return ("A-");
-        }
-        elseif($grand_total >= 75){
-            return ("B+");
-            
-        }
-        elseif($grand_total >= 70){
-            return ("B");
-            
-        }
-        elseif($grand_total >=65){
-            return ("B-");
-        }
-        elseif($grand_total >= 60){
-            return ("C+");
-            
-        }
-        elseif($grand_total >= 50){
-            return ("D");
-            
-        }
-        else{
-            return ("F");
-        }
-    }
-    public function test(){
-        $result = $this->check('65');
-        var_dump($result);
-    }
+    
+
     public function view_deactive_students() {
         $data['content'] = 'admin/students/view_deactive_students';
         $condition = array('status='=> 3);

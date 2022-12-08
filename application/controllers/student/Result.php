@@ -38,6 +38,13 @@ Class Result extends MY_Controller {
             // redirect(base_url('student/Result/result'));
         }
     }
+    public function view_transcript(){
+        $student_id = $this->session->userdata('id');
+        $data['result_data'] = $this->studentResult_model->student_transcript($student_id);
+        $this->load->view('student/template/header');
+        $this->load->view('student/Result/student_transcript',$data);
+        $this->load->view('student/template/footer'); 
+    }
 
 }
 

@@ -61,7 +61,11 @@
                 <ul class="treeview-menu">
                     <li><a href="<?= base_url(); ?>student/Result/view_result"><i class="fa fa-circle-o"></i>View Semester Results</a></li>
                 </ul>
+                <ul class="treeview-menu">
+                    <li><a href="<?= base_url(); ?>student/Result/view_transcript"><i class="fa fa-circle-o"></i>View Transcript</a></li>
+                </ul>
             </li>
+            
             
             <!-- <li>
                 <a href="<?= base_url(); ?>admin_assets/#">
