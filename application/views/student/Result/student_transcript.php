@@ -2,38 +2,35 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <?php   foreach($result_data as $data){
-                $first_name = $data->first_name;
-                $last_name = $data->last_name;
-                $studentid = $data->studentid;
-                $registrationid = $data->studentID;
-                $program = $data->program_name;
-                $semester = $data->semester;
-            }
+        <?php   
+            $CI =& get_instance();
+            $CI->load->model('studentResult_model');
+            $result= $CI->studentResult_model->student_detail($student_id);
+            foreach($result as $data):
         ?>
-        <h4>
-            <b>STUDENT ID : </b> <?= $studentid; ?>
-            <small></small>
-        </h4>
-        <h4>
-            <b>STUDENT NAME : </b> <?= $first_name; ?> <?= $last_name; ?>
-            <small></small>
-        </h4>
-        <h4>
-            <b>Registration# : </b> <?= $registrationid; ?>
-            <small></small>
-        </h4>
-        <h4>
-            <b>Program : </b> <?= $program; ?>
-            <small></small>
-        </h4>
+
+            <h4>
+                <b>STUDENT ID : </b> <?= $data->id; ?>
+                <small></small>
+            </h4>
+            <h4>
+                <b>STUDENT NAME : </b> <?= $data->first_name; ?> <?= $data->last_name; ?>
+                <small></small>
+            </h4>
+            <h4>
+                <b>Registration# : </b> <?= $data->student_id; ?>
+                <small></small>
+            </h4>
+            <h4>
+                <b>Program : </b> <?= $data->program_name; ?>
+                <small></small>
+            </h4>
+        <?php endforeach; ?>
       
     </section>
     <?php   
-        $CI =& get_instance();
-        $CI->load->model('studentResult_model');
         for($i=1 ; $i<= 8; $i +=1){
-            $condition = array('marks.student_id'=> '48' , 'marks.semester' => $i);
+            $condition = array('marks.student_id'=> $student_id , 'marks.semester' => $i);
             $result= $CI->studentResult_model->student_result($condition); ?>
             <!-- Main content -->
             <section class="content">

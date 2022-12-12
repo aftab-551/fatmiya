@@ -35,12 +35,11 @@ Class Result extends MY_Controller {
         else{
             $data['content'] = 'student/Result/result';
             $this->load->view('student/student_master', $data);
-            // redirect(base_url('student/Result/result'));
         }
     }
     public function view_transcript(){
         $student_id = $this->session->userdata('id');
-        $data['result_data'] = $this->studentResult_model->student_transcript($student_id);
+        $data['student_id'] = $student_id;
         $this->load->view('student/template/header');
         $this->load->view('student/Result/student_transcript',$data);
         $this->load->view('student/template/footer'); 
