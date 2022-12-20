@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="<?= base_url(); ?>admin_assets/plugins/datatables/dataTables.bootstrap.css">
-<div class="content-wrapper">
+<div class="content-wrapper" id="result">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section class="col-xs-12">
         <?php   foreach($result_data as $data){
-                $first_name = $data->first_name;
-                $last_name = $data->last_name;
-                $studentid = $data->studentID;
+            $first_name = $data->first_name;
+            $last_name = $data->last_name;
+            $studentid = $data->studentID;
 
             }
         ?>
@@ -28,6 +28,7 @@
     <section class="content">
         
             <div class="row">
+
                 <div class="col-xs-12">
                     <?php if ($this->session->userdata('fail')): ?>
                         <div class="alert alert-danger">
@@ -111,6 +112,9 @@
             </div><!-- /.row -->
         
     </section><!-- /.content -->
+    <div class="box-footer" id="content">
+        <button type="submit" onclick="takeScreenShot()" id="pdf" class="btn btn-primary">Download Result</button>
+    </div>
 </div><!-- /.content-wrapper -->
 <div class="box-body">
                         
@@ -119,6 +123,9 @@
 <!-- DataTables -->
 <script src="<?= base_url(); ?>admin_assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url(); ?>admin_assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+
+
 <!-- page script -->
 <script>
     $(function () {
@@ -132,6 +139,45 @@
 //          "autoWidth": false
 //        });
     });
+</script>
+<!-- <script>
+    
+    var specialElementHandlers = {
+        '#content': function (element, renderer) {
+            return true;
+        }
+    };
+
+    $('#pdf').click(function () {
+        var doc = new jsPDF('p', 'pt', 'letter');
+        doc.fromHTML($('#result').html(), 10, 10, {
+            'width': 190,
+            'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
+    });
+
+    // This code is collected but useful, click below to jsfiddle link.
+</script> -->
+<!-- <script>
+    window.takeScreenShot = function() {
+    html2canvas(document.getElementById("result"), {
+            useCORS: true,
+            onrendered: function (canvas) {
+            document.body.appendChild(canvas);
+        },
+        width:320,
+        height:220
+    });
+}
+</script> -->
+<script>
+    $('#pdf').click(()=>{
+        var pdf = new jsPDF('p','pt','letter');
+        pdf.addHTML(document.getElementById("result"),function() {
+            pdf.save('web.pdf');
+        });
+})
 </script>
 <!-- marks script -->
 <!-- <script>
@@ -177,4 +223,4 @@
         }
     }
     // console.log(cells);
-</script> -->
+</scrip> -->
