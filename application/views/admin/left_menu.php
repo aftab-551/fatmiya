@@ -145,7 +145,13 @@
                         <a href="<?= base_url(); ?>admin/Students/view_enrolled_students"><i class="fa fa-circle-o"></i> View Enrolled Students </a>
                     </li>
                     <li class="<?= current_url() == base_url('admin/Students/view_students_result1') ? 'active': ''; ?>">
-                        <a href="<?= base_url(); ?>admin/Students/view_students_result1"><i class="fa fa-circle-o"></i> View Students Result </a>
+                        <a href="<?= base_url(); ?>admin/Students/view_students_result1"><i class="fa fa-circle-o"></i> edit Students Result </a>
+                    </li>
+                    <li class="<?= current_url() == base_url('admin/Students/view_semester_result') ? 'active': ''; ?>">
+                        <a href="<?= base_url(); ?>admin/Students/view_semester_result"><i class="fa fa-circle-o"></i> View Semester Result </a>
+                    </li>
+                    <li class="<?= current_url() == base_url('admin/Students/view_students_transcript') ? 'active': ''; ?>">
+                        <a href="<?= base_url(); ?>admin/Students/view_students_transcript"><i class="fa fa-circle-o"></i> View Students transcript </a>
                     </li>
                 </ul>
             </li>

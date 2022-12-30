@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?= base_url(); ?>admin_assets/plugins/datatables/dataTables.bootstrap.css">
-<div class="content-wrapper">
+<div class="content-wrapper" id="result">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section class="content-header" >
         <?php   
             $CI =& get_instance();
             $CI->load->model('studentResult_model');
@@ -28,54 +28,92 @@
         <?php endforeach; ?>
       
     </section>
-    <?php   
-        for($i=1 ; $i<= 8; $i +=1){
-            $condition = array('marks.student_id'=> $student_id , 'marks.semester' => $i);
-            $result= $CI->studentResult_model->student_result($condition); ?>
+    
             <!-- Main content -->
             <section class="content">
             
                 <div class="row">
-                    <div class="col-xs-12">
-                        <?php if ($this->session->userdata('fail')): ?>
-                            <div class="alert alert-danger">
-                                <strong>Error!</strong> <?= $this->session->userdata('fail'); ?>
-                            </div>
-                        <?php endif; ?>
-                        <div class="box">
-                            <div class="box-body">
-                                <h1 style= "text-align: center;" >SEMESTER  <?= $i; ?></h1>
-                                <table id="marks" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Course Code</th>
-                                            <th>Course Title</th>
-                                            <th>Marks</th>
-                                            <th>Grade</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php  foreach ($result as $data): ?>
-                                            <tr>
+                
+                    
+                        <div class="col-xs-6">
+                            <?php  for($i=1 ; $i<= 8; $i +=1){
+                                $condition = array('marks.student_id'=> $student_id , 'marks.semester' => $i);
+                                $result= $CI->studentResult_model->student_result($condition); ?>
+                                <?php if($i % 2 == 1): ?>
+                                    <div class="box">
+                                            <div class="box-body">
+                                                <h1 style= "text-align: center;" >SEMESTER  <?= $i; ?></h1>
+                                                <table id="marks" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Course Code</th>
+                                                            <th>Course Title</th>
+                                                            <th>Marks</th>
+                                                            <th>Grade</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php  foreach ($result as $data): ?>
+                                                            <tr>
+                                                                
+                                                                
+                                                                    <td><?= $data->code; ?></td>
+                                                                    <td><?= $data->Cname; ?></td>
+                                                                    <td><?= $data->grand_total; ?></td>
+                                                                    <td><?= $data->grade; ?></td>     
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
                                                 
+                                            </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                <?php endif; ?>
+                            <?php } ?>
+                        </div><!-- /.col -->
+                        <div class="col-xs-6">
+                            <?php  for($i=1 ; $i<= 8; $i +=1){
+                                $condition = array('marks.student_id'=> $student_id , 'marks.semester' => $i);
+                                $result= $CI->studentResult_model->student_result($condition); ?>
+                                <?php if($i % 2 == 0): ?>
+                                    <div class="box">
+                                            <div class="box-body">
+                                                <h1 style= "text-align: center;" >SEMESTER  <?= $i; ?></h1>
+                                                <table id="marks" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Course Code</th>
+                                                            <th>Course Title</th>
+                                                            <th>Marks</th>
+                                                            <th>Grade</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php  foreach ($result as $data): ?>
+                                                            <tr>
+                                                                
+                                                                
+                                                                    <td><?= $data->code; ?></td>
+                                                                    <td><?= $data->Cname; ?></td>
+                                                                    <td><?= $data->grand_total; ?></td>
+                                                                    <td><?= $data->grade; ?></td>     
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
                                                 
-                                                    <td><?= $data->code; ?></td>
-                                                    <td><?= $data->Cname; ?></td>
-                                                    <td><?= $data->grand_total; ?></td>
-                                                    <td><?= $data->grade; ?></td>     
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                                
-                            </div><!-- /.box-body -->
-                        </div><!-- /.box -->
-                    </div><!-- /.col -->
+                                            </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                <?php endif; ?>
+                            <?php } ?>
+                        </div><!-- /.col -->
+                    <? endif; ?>
                 </div><!-- /.row -->
             
             </section><!-- /.content -->
-    <?php } ?>
-        
+    <div class="box-footer" id="content">
+        <button type="submit"  id="pdf" class="btn btn-primary">Download Transcript</button>
+    </div>
 </div><!-- /.content-wrapper -->
 <div class="box-body">
                         
@@ -99,6 +137,14 @@
     });
 </script>
 <!-- marks script -->
+<script>
+    $('#pdf').click(()=>{
+        var pdf = new jsPDF('p','pt','letter');
+        pdf.addHTML(document.getElementById("result"),function() {
+            pdf.save('web.pdf');
+        });
+    })
+</script>
 <!-- <script>
     var table = document.getElementById('marks');
     var cells = table.getElementsByTagName('td');

@@ -8,7 +8,7 @@ class Students extends MY_Controller {
         parent::__construct();
         $this->load->helper(array('form'));
         $this->load->library(array('form_validation','email'));
-        $this->load->model(array('students_model','enrolledCourses_model','login_model'));
+        $this->load->model(array('students_model','enrolledCourses_model','login_model','studentResult_model'));
         if ($this->login_model->loggedIn() == false) {
             redirect('admin/Login');
         }
@@ -51,6 +51,54 @@ class Students extends MY_Controller {
         }
         else{
             $data['content'] = 'admin/students/view_student_result';
+            $this->load->view('admin/admin_master', $data);
+        }
+       
+    }
+    public function view_semester_result(){
+        if($this->input->post()){
+            $student_id = $this->input->post('studentID');
+            $semesterid=$this->input->post('semesterNO');
+            $condition = array('marks.student_id'=> $student_id , 'marks.semester' => $semesterid);
+            $data = $this->studentResult_model->student_result($condition);
+            if($data == true){
+                // $this->session->set_flashdata('success','SUCCESS');
+                $data['result_data'] = $this->studentResult_model->student_result($condition);
+                $this->load->view('student/template/header');
+                $this->load->view('student/Result/studentresult',$data);
+                $this->load->view('student/template/footer'); 
+            }
+            else{
+                $this->session->set_flashdata('fail','Your have entered Incorrect Student ID and Semester Number');
+                $data['content'] = 'admin/students/view_semester_result';
+                $this->load->view('admin/admin_master', $data);
+            }
+        }
+        else{
+            $data['content'] = 'admin/students/view_semester_result';
+            $this->load->view('admin/admin_master', $data);
+        }
+       
+    }
+    public function view_students_transcript(){
+        if($this->input->post()){
+            $student_id = $this->input->post('studentID');
+            $data = $this->studentResult_model->student_detail($student_id);
+            if($data == true){
+                // $this->session->set_flashdata('success','SUCCESS');
+                $data['student_id'] = $student_id;
+                $this->load->view('student/template/header');
+                $this->load->view('student/Result/student_transcript',$data);
+                $this->load->view('student/template/footer'); 
+            }
+            else{
+                $this->session->set_flashdata('fail','Your have entered Incorrect Student ID');
+                $data['content'] = 'admin/students/view_student_transcript';
+                $this->load->view('admin/admin_master', $data);
+            }
+        }
+        else{
+            $data['content'] = 'admin/students/view_student_transcript';
             $this->load->view('admin/admin_master', $data);
         }
        

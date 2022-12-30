@@ -23,6 +23,7 @@ class studentResult_model extends MY_Model{
 
         return $rows;
     }
+    
 
 }
 
